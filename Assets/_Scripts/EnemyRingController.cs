@@ -36,21 +36,25 @@ public class EnemyRingController : MonoBehaviour {
     private void On_ScoreAdd()
     {
         score ++;
-        if (score == 3)
+        switch (score)
         {
-            EnemyCount = 5;
-        }
-        else if (score == 5)
-        {
-            EnemyCount = 8;
-        }
-        else if (score == 8)
-        {
-            EnemyCount = 10;
-        }
-        else if (score == 13)
-        {
-            EnemyCount = 15;
+            case 0:
+                EnemyCount = 3;
+                break;
+            case 3:
+                EnemyCount = 5;
+                break;
+            case 5:
+                EnemyCount = 8;
+                break;
+            case 8:
+                EnemyCount = 10;
+                break;
+            case 10:
+                EnemyCount = 15;
+                break;
+            default:
+                break;
         }
     }
 

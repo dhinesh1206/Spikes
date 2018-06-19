@@ -39,16 +39,18 @@ public class PlayerController : MonoBehaviour {
     public void On_GameStart()
     {
         thrust = 150;
-        gameObject.GetComponent<Rigidbody2D>().AddForce(-transform.up * thrust);
-        transform.GetComponent<SpriteRenderer>().enabled = true;
+        transform.position = Vector3.zero;
+        GetComponent<Rigidbody2D>().AddForce(-transform.up * thrust);
+        GetComponent<CircleCollider2D>().enabled = true;
+        GetComponent<SpriteRenderer>().enabled = true;
     }
 
     private void On_PlayerDeath(Vector2 position)
     {
         score = 0;
-        transform.position = Vector3.zero;
-        transform.GetComponent<SpriteRenderer>().enabled = false;
-        transform.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<CircleCollider2D>().enabled = false;
+        GetComponent<Rigidbody2D>().velocity = Vector3.zero;
     }
 
     void FixedUpdate()
@@ -65,7 +67,7 @@ public class PlayerController : MonoBehaviour {
         }
         else if(collision.gameObject.tag =="Enemy")
         {
-            GameEvents.instance.PlayerDied(collision.contacts[0].point);
+            GameEvents.instance.PlayerDied(transform.position);
         }
     }
 

@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour {
 
-    public int score;
-    public Text scoreText,HighScoreText;
+    public int score,highScore;
+    public Text scoreText;
+    public Text[] highScoreText;
 
     private void OnEnable()
     {
@@ -24,6 +25,9 @@ public class ScoreManager : MonoBehaviour {
 
     private void On_GameStart()
     {
+        highScore = PlayerPrefs.GetInt("HighScore");
+        highScoreText[0].text = "HighScore : " + highScore.ToString();
+        highScoreText[1].text = "HighScore : " + highScore.ToString();
         score = 0;
         scoreText.text = "Score :" + score.ToString();
     }
@@ -31,12 +35,9 @@ public class ScoreManager : MonoBehaviour {
     private void On_PlayerDeath(Vector2 position)
     {
         int HighScore = PlayerPrefs.GetInt("HighScore");
-        if (HighScore != null)
+        if (score > HighScore)
         {
-            if (score > HighScore)
-            {
-                PlayerPrefs.SetInt("HighScore", score);
-            }
+            PlayerPrefs.SetInt("HighScore", score);
         }
     }
 
@@ -44,5 +45,10 @@ public class ScoreManager : MonoBehaviour {
     {
         score += 1;
         scoreText.text = "Score :"+score.ToString();
+        if(score > highScore)
+        {
+            highScoreText[0].text = "HighScore" + score.ToString();
+            highScoreText[1].text = "HighScore" + score.ToString();
+        }
     }
 }
